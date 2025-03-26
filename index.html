@@ -255,8 +255,8 @@
     
     <div class="container" id="container">
         <div class="initial-content">
-            <h1>Você aceita sair comigo? ❤️</h1>
-            <p>Eu preparei algo especial para nós dois. O que você acha de irmos juntos?</p>
+            <h1>Nosso segundo date(😂), aceitas?</h1>
+            <p>😆😆🎸🎸</p>
             
             <div class="buttons">
                 <button class="btn btn-yes" id="btnYes">SIM!</button>
@@ -265,28 +265,28 @@
         </div>
         
         <div class="invitation-card" id="invitationCard">
-            <h2>Detalhes do Nosso Encontro</h2>
-            <p>Estou tão feliz que você aceitou! Aqui estão os detalhes:</p>
+            <h2>Detalhes do Nosso Date</h2>
+            <p>Here it goesss:</p>
             
             <div class="details">
                 <div class="detail-item">
-                    <i>📅</i> <span>Sábado, 15 de Junho</span>
+                    <i>📅</i> <span>Sábado, 2 de Abril</span>
                 </div>
                 <div class="detail-item">
                     <i>⏰</i> <span>19:30</span>
                 </div>
                 <div class="detail-item">
                     <i>📍</i> <span>
-                        Aquele lugar incrível<br>
+                        Olha aiiil<br>
                         <a href="https://www.instagram.com/p/DGOi1jJxUAT/" class="local-link" target="_blank">Ver local no Instagram</a>
                     </span>
                 </div>
                 <div class="detail-item">
-                    <i>👗</i> <span>Vista-se como quiser, você já é linda</span>
-                </div>
+                    <i>👗</i> <span>🧐</span>
+                </div>e
             </div>
             
-            <p>Mal posso esperar para te ver!</p>
+            <p>Can't wait to see you!</p>
             <button class="btn-confirm" id="btnConfirm">Confirmar Presença</button>
         </div>
     </div>
@@ -300,7 +300,6 @@
             const invitationCard = document.getElementById('invitationCard');
             const heartsContainer = document.getElementById('hearts');
             
-            // Criar corações flutuantes
             function createHearts() {
                 for (let i = 0; i < 15; i++) {
                     setTimeout(() => {
@@ -380,7 +379,7 @@
             btnConfirm.addEventListener('click', function() {
                 // Redirecionar para o WhatsApp
                 const phoneNumber = '5592982110189'; // Seu número formatado
-                const message = 'Olá! Confirmo minha presença no nosso encontro ❤️ Mal posso esperar!';
+                const message = 'Bó';
                 const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');
             });
