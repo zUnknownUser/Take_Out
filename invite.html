@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Especial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: float 6s linear infinite;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: rotate(45deg) translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(45deg) translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-yes {
+            background-color: #ff6b6b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-yes:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .btn-no {
+            background-color: #f8f9fa;
+            color: #555;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.1s ease;
+        }
+
+        .invitation-card {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+        }
+
+        .invitation-card h2 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .invitation-card p {
+            margin-bottom: 20px;
+        }
+
+        .invitation-card .details {
+            background: #fff9f9;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .invitation-card .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .invitation-card .detail-item i {
+            margin-right: 10px;
+            color: #ff6b6b;
+        }
+
+        .btn-confirm {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            margin-top: 15px;
+        }
+
+        .btn-confirm:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        .local-link {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .local-link:hover {
+            text-decoration: underline;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            p {
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .invitation-card h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container" id="container">
+        <div class="initial-content">
+            <h1>Você aceita sair comigo? ❤️</h1>
+            <p>Eu preparei algo especial para nós dois. O que você acha de irmos juntos?</p>
+            
+            <div class="buttons">
+                <button class="btn btn-yes" id="btnYes">SIM!</button>
+                <button class="btn btn-no" id="btnNo">Não</button>
+            </div>
+        </div>
+        
+        <div class="invitation-card" id="invitationCard">
+            <h2>Detalhes do Nosso Encontro</h2>
+            <p>Estou tão feliz que você aceitou! Aqui estão os detalhes:</p>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <i>📅</i> <span>Sábado, 15 de Junho</span>
+                </div>
+                <div class="detail-item">
+                    <i>⏰</i> <span>19:30</span>
+                </div>
+                <div class="detail-item">
+                    <i>📍</i> <span>
+                        Aquele lugar incrível<br>
+                        <a href="https://www.instagram.com/p/DGOi1jJxUAT/" class="local-link" target="_blank">Ver local no Instagram</a>
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <i>👗</i> <span>Vista-se como quiser, você já é linda</span>
+                </div>
+            </div>
+            
+            <p>Mal posso esperar para te ver!</p>
+            <button class="btn-confirm" id="btnConfirm">Confirmar Presença</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnYes = document.getElementById('btnYes');
+            const btnNo = document.getElementById('btnNo');
+            const btnConfirm = document.getElementById('btnConfirm');
+            const container = document.getElementById('container');
+            const invitationCard = document.getElementById('invitationCard');
+            const heartsContainer = document.getElementById('hearts');
+            
+            // Criar corações flutuantes
+            function createHearts() {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        heart.style.left = Math.random() * 100 + 'vw';
+                        heart.style.top = Math.random() * 100 + 'vh';
+                        heart.style.opacity = Math.random();
+                        heart.style.transform = `rotate(45deg) scale(${Math.random() * 0.5 + 0.5})`;
+                        heart.style.animationDuration = Math.random() * 4 + 3 + 's';
+                        heartsContainer.appendChild(heart);
+                        
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 6000);
+                    }, i * 300);
+                }
+            }
+            
+            // Iniciar corações
+            setInterval(createHearts, 3000);
+            createHearts();
+            
+            // Efeito para o botão Não
+            btnNo.addEventListener('mouseover', function() {
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = btnNo.getBoundingClientRect();
+                
+                const maxX = containerRect.width - btnRect.width - 20;
+                const maxY = containerRect.height - btnRect.height - 20;
+                
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                btnNo.style.position = 'absolute';
+                btnNo.style.left = randomX + 'px';
+                btnNo.style.top = randomY + 'px';
+                
+                // Efeito de coração quando o mouse passa sobre Não
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = (randomX + btnRect.width/2 - 10) + 'px';
+                heart.style.top = (randomY + btnRect.height/2 - 10) + 'px';
+                heart.style.animationDuration = '2s';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            });
+            
+            // Botão Sim
+            btnYes.addEventListener('click', function() {
+                container.classList.add('flipped');
+                invitationCard.style.display = 'block';
+                
+                // Efeito de confete
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        heart.style.left = Math.random() * 100 + 'vw';
+                        heart.style.top = '100vh';
+                        heart.style.opacity = 1;
+                        heart.style.transform = `rotate(45deg) scale(${Math.random() * 0.5 + 0.5})`;
+                        heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+                        heartsContainer.appendChild(heart);
+                        
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 3000);
+                    }, i * 50);
+                }
+            });
+            
+            // Botão Confirmar
+            btnConfirm.addEventListener('click', function() {
+                // Redirecionar para o WhatsApp
+                const phoneNumber = '5592982110189'; // Seu número formatado
+                const message = 'Olá! Confirmo minha presença no nosso encontro ❤️ Mal posso esperar!';
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
